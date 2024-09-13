@@ -38,7 +38,7 @@ print(X)
 
 # Operations
 
-print(torch.exp(x))
+print(f'exp(x) is: {torch.exp(x)}')
 
 x = torch.tensor([1.0, 2, 4, 8])
 y = torch.tensor([2, 2, 2, 2])
@@ -58,4 +58,34 @@ a = torch.arange(3).reshape((3, 1))
 b = torch.arange(2).reshape((1, 2))
 print(a, b)
 print(a + b)
+print(a - b)
+print(a * b)
 
+# Saving memory
+
+before = id(Y)
+Y = Y + X
+print(id(Y) == before)
+
+Z = torch.zeros_like(Y)
+print('id(Z):', id(Z))
+Z[:] = X + Y
+print('id(Z):', id(Z))
+
+before = id(X)
+X += Y
+print(id(X) == before)
+
+before = id(X)
+X += Y
+print(id(X) > before)
+
+
+# Conversion to Other Python Objects
+
+A = X.numpy()
+B = torch.from_numpy(A)
+print(type(A), type(B))
+
+a = torch.tensor([3.5])
+print(a, a.item(), float(a), int(a))
